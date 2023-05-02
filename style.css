@@ -1,3 +1,39 @@
 #root {
-  color: red;
+  color:gray;
+}
+body{
+  background-color:lightgray;
+}
+h1{
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+h2{
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  border: 2px solid darkgrey;
+  padding: 15px 20px;
+  margin-top: 0;
+  margin-left: 0;
+  margin-right: 0;
+  border-radius: .5em;
+  color: black;
+}
+ 
+
+.grid-container{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  grid-gap:20px;
+  margin-left: 50px;
+  margin-right: 50px;
+ 
+}
+.grid-item{
+  background-color: white;
+  padding-left: 30px;
+  padding-right: 30px;
+  border-radius: .5em;
 }
