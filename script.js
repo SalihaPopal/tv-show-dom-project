@@ -8,6 +8,7 @@ function setup() {
   function makePageForEpisodes(episodeList) {
     const rootElem = document.getElementById("root");
     rootElem.textContent = `Displaying ${episodeList.length}/${allEpisodes.length} episodes`;
+    
    
     // Added grid
     const gridContainer = document.createElement("div");
