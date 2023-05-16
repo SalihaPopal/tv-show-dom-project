@@ -3,8 +3,8 @@
 }
 #root{
    color: white;
-  /* padding-top: 1.5em; */
 }
+
 body{
   background-color:#3c948b;
 }
@@ -14,14 +14,20 @@ body{
   padding: 12px 20px 12px 40px;
 }
 
+#show-selector{
+  flex: 1;
+  padding: 0.5em;
+}
+
 #episode-selector{
   flex: 1;
   padding: 0.5em ;
+  margin-left: 0.5em;
 }
 
 #searchInput{
   flex: 1;
-  margin-left: 2em;
+  margin-left: 0.5em;
   padding: 0.5em;
   width: 13em;
 }
@@ -36,13 +42,19 @@ h1{
 h3{
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   
-  padding: 15px 20px;
-  margin-top: 1rem;
-  margin-left: 0;
-  margin-right: 0;
+  padding: 15px;
+  margin-bottom: 1em;
   border-radius: .5em;
   color: white;
   background-color:#3c948b;
+}
+
+.img{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 0.5em;
+  margin-bottom: 1em;
 }
  
 
@@ -64,5 +76,6 @@ h3{
 
 .p{
   color: #3c948b;
+  padding-left: 0.5em;
 }
 

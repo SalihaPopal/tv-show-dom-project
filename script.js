@@ -1,10 +1,39 @@
 const allEpisodes = getAllEpisodes();
-function setup() {
-    // const allEpisodes = getAllEpisodes();
-    makePageForEpisodes(allEpisodes);
-    buildDropdown(allEpisodes);
-  }
+// function setup() {
+//     // const allEpisodes = getAllEpisodes();
+//     makePageForEpisodes(allEpisodes);
+//     buildDropdown(allEpisodes);
+//   }
+
+
+//.  level 350
+
+// async function setup() {
+//     try {
+//       const response = await fetch("https://api.tvmaze.com/shows/82/episodes");
+//       const episodes = await response.json();
+//       makePageForEpisodes(episodes);
+//       buildDropdown(episodes);
+//     } catch (error) {
+//       console.error("Error fetching episodes:", error);
+//     }
+//   }
   
+
+// level 400
+
+async function setup() {
+    try {
+      const episodes = await getAllEpisodes();
+      makePageForEpisodes(episodes);
+      buildDropdown(episodes);
+      buildEpisodeDropdown(episodes)
+      makePageForEpisodes(shows);
+    } catch (error) {
+      console.error("Error fetching shows:", error);
+    }
+  }
+ 
   function makePageForEpisodes(episodeList) {
     const rootElem = document.getElementById("root");
     rootElem.textContent = `Displaying ${episodeList.length}/${allEpisodes.length} episodes`;
@@ -29,12 +58,14 @@ function setup() {
       nameElem.textContent = `${episode.name} - ${episodeCode}`;
       const episodeLink = document.createElement("a");
       episodeLink.href = episode.url;
+    //   episodeLink.textContent = episode.name;
       nameElem.appendChild(episodeLink);
       
   
       const imageElem = document.createElement("img");
       imageElem.src = episode.image.medium;
       imageElem.alt = episode.name;
+      imageElem.classList.add("img");
   
       const summaryElem = document.createElement("p");
       summaryElem.innerHTML = episode.summary;
@@ -49,6 +80,8 @@ function setup() {
       gridContainer.appendChild(episodeElem);
     });
 } ;
+
+
 
 // live search for the selected episodes
 
@@ -79,9 +112,11 @@ liveSearch.addEventListener("keyup", searchEpisode); // keyup active the the liv
    } 
 }
 
-// dropdown list of episodes
 
-function buildDropdown(episodes) {
+
+// level 300 dropdown list of episodes
+
+function buildEpisodeDropdown(episodes) {
     const selector = document.getElementById("episode-selector");
   
     episodes.forEach((episode) => {
@@ -93,7 +128,7 @@ function buildDropdown(episodes) {
       option.textContent = `${episodeCode} - ${episode.name}`;
       selector.appendChild(option);
     });
-  
+
     selector.addEventListener("change", (event) => {
       const selectedEpisodeCode = event.target.value;
       const selectedEpisode = episodes.find((episode) => {
@@ -138,13 +173,48 @@ function buildDropdown(episodes) {
       }
     }
   }
+
+
    
+//.  level 400 adding a new episode selector
 
-window.onload = setup;
-
-
-
-
-
-
-
+function buildDropdown(episodes){
+    const showSelector = document.getElementById("show-selector");
+  
+    // Load the list of shows
+    const shows = getAllShows();
+  
+    // Sort shows alphabetically
+    shows.sort((a, b) => a.name.localeCompare(b.name, 'en', { sensitivity: 'base' }));
+  
+    shows.forEach((show) => {
+      const option = document.createElement("option");
+      option.value = show.id;
+      option.textContent = show.name;
+      showSelector.appendChild(option);
+    });
+  
+    showSelector.addEventListener("change", async (event) => {
+      const selectedShowId = event.target.value;
+      const episodes = await fetchEpisodesForShow(selectedShowId);
+      makePageForEpisodes(episodes);
+      buildDropdown(episodes); // Rebuild the episode selector dropdown with the new episodes
+    });
+  }
+  
+  async function fetchEpisodesForShow(showId) {
+    const url = `https://api.tvmaze.com/shows/${showId}/episodes`;
+    const response = await fetch(url);
+    const episodes = await response.json();
+    return episodes;
+  }
+  
+  window.onload = async function () {
+    const initialShowId = 'i'; 
+    const episodes = await fetchEpisodesForShow(initialShowId);
+    setup();
+    buildDropdown(episodes);
+  };
+  
+  
+  window.onload = setup
