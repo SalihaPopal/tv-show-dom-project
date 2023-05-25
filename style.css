@@ -1,3 +1,81 @@
-#root {
-  color: red;
+*{
+  margin: 0;
 }
+#root{
+   color: white;
+}
+
+body{
+  background-color:#3c948b;
+}
+#nav-container{
+  display: flex;
+  align-content: center;
+  padding: 12px 20px 12px 40px;
+}
+
+#show-selector{
+  flex: 1;
+  padding: 0.5em;
+}
+
+#episode-selector{
+  flex: 1;
+  padding: 0.5em ;
+  margin-left: 0.5em;
+}
+
+#searchInput{
+  flex: 1;
+  margin-left: 0.5em;
+  padding: 0.5em;
+  width: 13em;
+}
+
+h1{
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  color: white;
+}
+
+h3{
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  
+  padding: 15px;
+  margin-bottom: 1em;
+  border-radius: .5em;
+  color: white;
+  background-color:#3c948b;
+}
+
+.img{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 0.5em;
+  margin-bottom: 1em;
+}
+ 
+
+.grid-container{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-rows: repeat(3, 1fr);
+  grid-gap:20px;
+  margin-left: 50px;
+  margin-right: 50px;
+  margin-top: 1.5em;
+}
+.grid-item{
+  background-color: white;
+  border-radius: .5em;
+  border: 1px solid #ddd;
+  padding: 20px;
+}
+
+.p{
+  color: #3c948b;
+  padding-left: 0.5em;
+}
+
