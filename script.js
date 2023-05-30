@@ -75,8 +75,6 @@ async function setup() {
       episodeElem.appendChild(nameElem);
       episodeElem.appendChild(imageElem);
       episodeElem.appendChild(summaryElem);
-  
-      // Add the episode element to the grid container
       gridContainer.appendChild(episodeElem);
     });
 } ;
@@ -86,12 +84,12 @@ async function setup() {
 // live search for the selected episodes
 
 const liveSearch = document.getElementById("searchInput");
-liveSearch.addEventListener("keyup", searchEpisode); // keyup active the the live search
+liveSearch.addEventListener("keyup", searchEpisode); // keyup actives the live search
 
    function searchEpisode(event) {
 
     const selectedEpisode = [];
-
+  
     let searchContent = event.target.value;
    if (searchContent === ""){
     setup()
@@ -147,14 +145,12 @@ function buildEpisodeDropdown(episodes) {
   }
 
   function scrollToEpisode(episodeCode) {
-    const episodeElem = document.querySelector(`.grid-item h3:contains(${episodeCode})`).parentNode;
-    episodeElem.scrollIntoView({ behavior: "smooth" });
+    const episodeElem = document.querySelector(`.grid-item h3:contains(${episodeCode})`).parentNode; // .parentNode is called to access the parent element of the select "h3" element
   }
 
   //  selecting a specific episode
   function searchEpisode(event) {
-    const selectedEpisode = [];
-  
+    const selectedEpisode = [];  
     let searchContent = event.target.value;
     if (searchContent === "") {
       setup();
@@ -174,16 +170,15 @@ function buildEpisodeDropdown(episodes) {
     }
   }
 
-
    
 //.  level 400 adding a new episode selector
 
-function buildDropdown(episodes){
+function buildDropdown(){
     const showSelector = document.getElementById("show-selector");
-  
+
     // Load the list of shows
     const shows = getAllShows();
-  
+
     // Sort shows alphabetically
     shows.sort((a, b) => a.name.localeCompare(b.name, 'en', { sensitivity: 'base' }));
   
@@ -191,7 +186,7 @@ function buildDropdown(episodes){
       const option = document.createElement("option");
       option.value = show.id;
       option.textContent = show.name;
-      showSelector.appendChild(option);
+      showSelector.appendChild(option); 
     });
   
     showSelector.addEventListener("change", async (event) => {
@@ -216,5 +211,65 @@ function buildDropdown(episodes){
     buildDropdown(episodes);
   };
   
+ // level 500 
+const allShows = getAllShows(); // Assuming you have a function to get all shows
+
+function makePageForShows(showList) {
+  const rootElem = document.getElementById("root");
+  rootElem.innerHTML = ""; // Clear the existing content
+
+  showList.forEach((show) => {
+    const showElem = document.createElement("div");
+    showElem.classList.add("show-container");
   
-  window.onload = setup
+    const nameElem = document.createElement("h3");
+    nameElem.textContent = show.name;
+    nameElem.classList.add("show-name");
+
+    const imageElem = document.createElement("img");
+    imageElem.src = show.image.medium;
+    imageElem.alt = show.name;
+    imageElem.classList.add("show-image");
+  
+    const summaryElem = document.createElement("p");
+    summaryElem.innerHTML = show.summary;
+    summaryElem.classList.add("show-summary");
+
+    const showInfoElem = document.createElement("div");
+    showInfoElem.classList.add("show-info");
+
+    const genresElem = document.createElement("p");
+    genresElem.textContent = `Genres: ${show.genres.join(", ")}`;
+
+    const statusElem = document.createElement("p");
+    statusElem.textContent = `Status: ${show.status}`;
+
+    const ratingElem = document.createElement("p");
+    ratingElem.textContent = `Rating: ${show.rating.average}`;
+
+    const runtimeElem = document.createElement("p");
+    runtimeElem.textContent = `Runtime: ${show.runtime} minutes`;
+
+    showInfoElem.appendChild(genresElem);
+    showInfoElem.appendChild(statusElem);
+    showInfoElem.appendChild(ratingElem);
+    showInfoElem.appendChild(runtimeElem);
+
+    showElem.appendChild(nameElem);
+    showElem.appendChild(summaryElem);
+    showElem.appendChild(imageElem);
+    showElem.appendChild(showInfoElem);
+
+    rootElem.appendChild(showElem);
+
+    nameElem.addEventListener ("click", takeToShow);
+  });
+}
+
+function takeToShow() {
+  console.log("takeToShow");
+}
+
+
+// Call the function to display all shows when the app starts
+makePageForShows(allShows);
