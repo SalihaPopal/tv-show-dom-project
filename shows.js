@@ -48,7 +48,7 @@ function getOneShow() {
     updated: 1580402781,
     _links: {
       self: { href: "http://api.tvmaze.com/shows/82" },
-      previousepisode: { href: "http://api.tvmaze.com/episodes/1623968" },
+      previousEpisode: { href: "http://api.tvmaze.com/episodes/1623968" },
     },
   };
 }
